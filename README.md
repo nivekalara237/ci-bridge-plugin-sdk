@@ -1,4 +1,4 @@
-# sbridge-plugin-sdk
+# ci-bridge-plugin-sdk
 
 [![CI](https://github.com/nivekalara237/ci-bridge-plugin-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/nivekalara237/ci-bridge-plugin-sdk/actions/workflows/ci.yml)
 [![Go Reference](https://pkg.go.dev/badge/github.com/nivekalara237/ci-bridge-plugin-sdk.svg)](https://pkg.go.dev/github.com/nivekalara237/ci-bridge-plugin-sdk)
@@ -54,7 +54,7 @@ import (
 
 	"github.com/nivekalara237/ci-bridge-plugin-sdk/capability"
 	"github.com/nivekalara237/ci-bridge-plugin-sdk/pluginshared"
-	pluginv1 "github.com/nivekalara237/ci-bridge-plugin-sdk/pluginv1"
+	pluginv1 "github.com/nivekalara237/ci-bridge-plugin-sdk/plugin/v1"
 )
 
 type gitlabServer struct {
@@ -107,7 +107,7 @@ sonarbridge-go's own `internal/plugin/runtime.GoPluginAdapter` is a complete, te
 
 Needs `protoc`, `protoc-gen-go` and `protoc-gen-go-grpc` on your `PATH`:
 
-```bash
+```shell
 go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 
