@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package vcs.comment.v1;
+option go_package = "github.com/nivekalara237/ci-bridge-plugin-sdk/vcs/comment";
+
+import "vcs/common.proto";
+
+service CommentAndNoteService {
+  rpc CreatePullrequestCommentOrNote(CreateCommentRequest) returns (CreateOrUpdateCommentResponse);
+  rpc UpdatePullrequestComment(UpdateCommentRequest) returns (CreateOrUpdateCommentResponse);
+  rpc DeletePullrequestComment(DeleteCommentRequest) returns (DeleteCommentResponse);
+}
+
+message CreateCommentRequest {
+  string project_id = 1;
+  // Gitlab: mr_iid, Github: issue_number
+  string pullrequest_id = 2;
+  string body = 3;
+  optional vcs.common.v1.AdditionalData others = 5;
+}
+
+message UpdateCommentRequest {
+  string project_id = 1;
+  // Gitlab: mr_iid, Github: issue_number
+  string pullrequest_id = 2;
+  string body = 3;
+  string comment_id = 4;
+  optional vcs.common.v1.AdditionalData others = 5;
+}
+
+message DeleteCommentRequest {
+  string project_id = 1;
+  // Gitlab: mr_iid, Github: issue_number
+  string pullrequest_id = 2;
+  string comment_id = 4;
+}
+
+message CommentItemResponse {
+  int64 id = 1;
+  string body = 2;
+  string created_at = 3;
+  string updated_at = 4;
+  optional bool system = 5;
+  optional string note_or_comment_id = 6;
+  optional string note_url = 7;
+  optional vcs.common.v1.Author author = 8;
+  optional vcs.common.v1.AdditionalData others = 9;
+}
+
+message CreateOrUpdateCommentResponse {
+  vcs.common.v1.HttpResponseMetadata metadata = 1;
+  CommentItemResponse data = 2;
+}
+message DeleteCommentResponse {
+  vcs.common.v1.HttpResponseMetadata metadata = 1;
+}

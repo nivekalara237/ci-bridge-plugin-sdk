@@ -1,0 +1,32 @@
+# "Deploying" a Go module isn't a server-side step: publishing IS tagging.
+# `go get github.com/Nivekaa/sbridge-plugin-sdk@vX.Y.Z` works the moment
+# the tag exists on GitHub — the module proxy fetches it lazily on first
+# request. This workflow just gates that tag behind a green test run and
+# turns it into a readable GitHub Release.
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.27"
+
+      - name: Test before releasing
+        run: go test ./... -race
+
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: gh release create "${{ github.ref_name }}" --generate-notes

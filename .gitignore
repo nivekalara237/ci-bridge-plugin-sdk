@@ -1,0 +1,12 @@
+# Build artifacts
+*.exe
+*.test
+*.out
+
+# Editor / OS cruft
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+HISTORIES.md

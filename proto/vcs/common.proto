@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package vcs.common.v1;
+
+option go_package = "github.com/nivekalara237/ci-bridge-plugin-sdk/vcs/common";
+
+import "google/protobuf/struct.proto";
+
+enum UserType {
+  User = 0;
+  Bot = 1;
+  System = 2;
+  Machine = 3;
+}
+
+message AdditionalData {
+  google.protobuf.Struct data = 1;
+}
+
+message Author {
+  string id = 1;
+  string username = 2;
+  string display_name = 3;
+  // email or login
+  optional string email = 4;
+  optional string avatar_url = 5;
+  optional string profil_web_url = 6;
+  optional string state = 7;
+  optional UserType type = 8;
+}
+
+message HttpResponseMetadata {
+  int32 status = 1;
+  optional string error_msg = 2;
+}

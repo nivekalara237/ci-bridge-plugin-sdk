@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package vcs.pullrequest.v1;
+
+option go_package = "github.com/nivekalara237/ci-bridge-plugin-sdk/vcs/pullrequest";
+
+import "vcs/common.proto";
+
+service PullRequestService {
+  rpc GetPullRequest(GetPullRequestRequest) returns (GetPullRequestResponse);
+}
+
+message GetPullRequestRequest {
+  // GitLab: ID/path ; GitHub: owner/repo ; BB: workspace/repo ; Gitea: owner/repo
+  string project_id = 1;
+  // GitLab: merge_request_iid ; GitHub: number ; BB: id ; Gitea: index
+  string pullrequest_id = 2;
+  // only github and gitea
+  optional string owner = 3;
+  optional vcs.common.v1.AdditionalData data = 4;
+}
+
+message GetPullRequestResponse {
+  int64 id = 1;
+  // gitlab: iid; github: number; bb:
+  string pr_iid = 2;
+  string title = 3;
+  // github: body, bb: rendered
+  string description = 4;
+  string state = 5;
+  string created_at = 6;
+  string updated_at = 7;
+  string target_branch = 8;
+  string source_branch = 9;
+  string closed_at = 10;
+  optional vcs.common.v1.Author closed_by = 11;
+  optional string merged_at = 12;
+  optional vcs.common.v1.Author merged_by = 13;
+  int32 comment_count = 14;
+  int32 review_comment_count = 15;
+  int32 commit_count = 16;
+  int32 changed_files_count = 17;
+  bool mergeable = 18;
+  bool rebaseable = 19;
+  bool merged = 20;
+  vcs.common.v1.Author author = 21;
+  optional vcs.common.v1.Author assigned_to = 22;
+  repeated vcs.common.v1.Author assignees = 23;
+  bool draft = 24;
+  optional string sha = 25;
+  repeated vcs.common.v1.Author requested_reviews = 26;
+  optional string web_url = 27;
+  bool approved = 28;
+  optional vcs.common.v1.Author approved_by = 29;
+}

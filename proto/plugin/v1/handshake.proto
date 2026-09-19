@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package plugin.v1;
+
+option go_package = "github.com/nivekalara237/ci-bridge-plugin-sdk/plugin/v1";
+
+// PluginInfo is the business handshake every sonarbridge plugin must
+// implement, whatever its type (vcs, ...). It is called right after the
+// go-plugin transport handshake succeeds, and its result is what the
+// host validates before accepting the plugin as READY.
+service PluginInfo {
+  rpc GetInfo(GetInfoRequest) returns (InfoResponse);
+}
+
+message GetInfoRequest {}
+
+message InfoResponse {
+  string name = 1;
+  string version = 2;
+  string plugin_type = 3;
+  int32 protocol_version = 4;
+  repeated string capabilities = 5;
+}
