@@ -62,7 +62,7 @@ type InfoResponse struct {
 	Name            string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Version         string                 `protobuf:"bytes,2,opt,name=version,proto3" json:"version,omitempty"`
 	PluginType      string                 `protobuf:"bytes,3,opt,name=plugin_type,json=pluginType,proto3" json:"plugin_type,omitempty"`
-	ProtocolVersion int32                  `protobuf:"varint,4,opt,name=protocol_version,json=protocolVersion,proto3" json:"protocol_version,omitempty"`
+	ProtocolVersion string                 `protobuf:"bytes,4,opt,name=protocol_version,json=protocolVersion,proto3" json:"protocol_version,omitempty"`
 	Capabilities    []string               `protobuf:"bytes,5,rep,name=capabilities,proto3" json:"capabilities,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
@@ -119,11 +119,11 @@ func (x *InfoResponse) GetPluginType() string {
 	return ""
 }
 
-func (x *InfoResponse) GetProtocolVersion() int32 {
+func (x *InfoResponse) GetProtocolVersion() string {
 	if x != nil {
 		return x.ProtocolVersion
 	}
-	return 0
+	return ""
 }
 
 func (x *InfoResponse) GetCapabilities() []string {
@@ -144,7 +144,7 @@ const file_plugin_v1_handshake_proto_rawDesc = "" +
 	"\aversion\x18\x02 \x01(\tR\aversion\x12\x1f\n" +
 	"\vplugin_type\x18\x03 \x01(\tR\n" +
 	"pluginType\x12)\n" +
-	"\x10protocol_version\x18\x04 \x01(\x05R\x0fprotocolVersion\x12\"\n" +
+	"\x10protocol_version\x18\x04 \x01(\tR\x0fprotocolVersion\x12\"\n" +
 	"\fcapabilities\x18\x05 \x03(\tR\fcapabilities2K\n" +
 	"\n" +
 	"PluginInfo\x12=\n" +

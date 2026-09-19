@@ -18,6 +18,6 @@ message InfoResponse {
   string name = 1;
   string version = 2;
   string plugin_type = 3;
-  int32 protocol_version = 4;
+  string protocol_version = 4;
   repeated string capabilities = 5;
 }

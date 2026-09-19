@@ -74,27 +74,27 @@ func (UserType) EnumDescriptor() ([]byte, []int) {
 	return file_vcs_common_proto_rawDescGZIP(), []int{0}
 }
 
-type AdditionalData struct {
+type ExtendedData struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Data          *structpb.Struct       `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *AdditionalData) Reset() {
-	*x = AdditionalData{}
+func (x *ExtendedData) Reset() {
+	*x = ExtendedData{}
 	mi := &file_vcs_common_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *AdditionalData) String() string {
+func (x *ExtendedData) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AdditionalData) ProtoMessage() {}
+func (*ExtendedData) ProtoMessage() {}
 
-func (x *AdditionalData) ProtoReflect() protoreflect.Message {
+func (x *ExtendedData) ProtoReflect() protoreflect.Message {
 	mi := &file_vcs_common_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -106,12 +106,12 @@ func (x *AdditionalData) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use AdditionalData.ProtoReflect.Descriptor instead.
-func (*AdditionalData) Descriptor() ([]byte, []int) {
+// Deprecated: Use ExtendedData.ProtoReflect.Descriptor instead.
+func (*ExtendedData) Descriptor() ([]byte, []int) {
 	return file_vcs_common_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *AdditionalData) GetData() *structpb.Struct {
+func (x *ExtendedData) GetData() *structpb.Struct {
 	if x != nil {
 		return x.Data
 	}
@@ -275,8 +275,8 @@ var File_vcs_common_proto protoreflect.FileDescriptor
 
 const file_vcs_common_proto_rawDesc = "" +
 	"\n" +
-	"\x10vcs/common.proto\x12\rvcs.common.v1\x1a\x1cgoogle/protobuf/struct.proto\"=\n" +
-	"\x0eAdditionalData\x12+\n" +
+	"\x10vcs/common.proto\x12\rvcs.common.v1\x1a\x1cgoogle/protobuf/struct.proto\";\n" +
+	"\fExtendedData\x12+\n" +
 	"\x04data\x18\x01 \x01(\v2\x17.google.protobuf.StructR\x04data\"\xcd\x02\n" +
 	"\x06Author\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1a\n" +
@@ -321,13 +321,13 @@ var file_vcs_common_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_vcs_common_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_vcs_common_proto_goTypes = []any{
 	(UserType)(0),                // 0: vcs.common.v1.UserType
-	(*AdditionalData)(nil),       // 1: vcs.common.v1.AdditionalData
+	(*ExtendedData)(nil),         // 1: vcs.common.v1.ExtendedData
 	(*Author)(nil),               // 2: vcs.common.v1.Author
 	(*HttpResponseMetadata)(nil), // 3: vcs.common.v1.HttpResponseMetadata
 	(*structpb.Struct)(nil),      // 4: google.protobuf.Struct
 }
 var file_vcs_common_proto_depIdxs = []int32{
-	4, // 0: vcs.common.v1.AdditionalData.data:type_name -> google.protobuf.Struct
+	4, // 0: vcs.common.v1.ExtendedData.data:type_name -> google.protobuf.Struct
 	0, // 1: vcs.common.v1.Author.type:type_name -> vcs.common.v1.UserType
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type

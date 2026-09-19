@@ -26,9 +26,9 @@ type CreateCommentRequest struct {
 	state     protoimpl.MessageState `protogen:"open.v1"`
 	ProjectId string                 `protobuf:"bytes,1,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
 	// Gitlab: mr_iid, Github: issue_number
-	PullrequestId string                 `protobuf:"bytes,2,opt,name=pullrequest_id,json=pullrequestId,proto3" json:"pullrequest_id,omitempty"`
-	Body          string                 `protobuf:"bytes,3,opt,name=body,proto3" json:"body,omitempty"`
-	Others        *common.AdditionalData `protobuf:"bytes,5,opt,name=others,proto3,oneof" json:"others,omitempty"`
+	PullrequestId string               `protobuf:"bytes,2,opt,name=pullrequest_id,json=pullrequestId,proto3" json:"pullrequest_id,omitempty"`
+	Body          string               `protobuf:"bytes,3,opt,name=body,proto3" json:"body,omitempty"`
+	Others        *common.ExtendedData `protobuf:"bytes,5,opt,name=others,proto3,oneof" json:"others,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -84,7 +84,7 @@ func (x *CreateCommentRequest) GetBody() string {
 	return ""
 }
 
-func (x *CreateCommentRequest) GetOthers() *common.AdditionalData {
+func (x *CreateCommentRequest) GetOthers() *common.ExtendedData {
 	if x != nil {
 		return x.Others
 	}
@@ -95,10 +95,10 @@ type UpdateCommentRequest struct {
 	state     protoimpl.MessageState `protogen:"open.v1"`
 	ProjectId string                 `protobuf:"bytes,1,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
 	// Gitlab: mr_iid, Github: issue_number
-	PullrequestId string                 `protobuf:"bytes,2,opt,name=pullrequest_id,json=pullrequestId,proto3" json:"pullrequest_id,omitempty"`
-	Body          string                 `protobuf:"bytes,3,opt,name=body,proto3" json:"body,omitempty"`
-	CommentId     string                 `protobuf:"bytes,4,opt,name=comment_id,json=commentId,proto3" json:"comment_id,omitempty"`
-	Others        *common.AdditionalData `protobuf:"bytes,5,opt,name=others,proto3,oneof" json:"others,omitempty"`
+	PullrequestId string               `protobuf:"bytes,2,opt,name=pullrequest_id,json=pullrequestId,proto3" json:"pullrequest_id,omitempty"`
+	Body          string               `protobuf:"bytes,3,opt,name=body,proto3" json:"body,omitempty"`
+	CommentId     string               `protobuf:"bytes,4,opt,name=comment_id,json=commentId,proto3" json:"comment_id,omitempty"`
+	Others        *common.ExtendedData `protobuf:"bytes,5,opt,name=others,proto3,oneof" json:"others,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -161,7 +161,7 @@ func (x *UpdateCommentRequest) GetCommentId() string {
 	return ""
 }
 
-func (x *UpdateCommentRequest) GetOthers() *common.AdditionalData {
+func (x *UpdateCommentRequest) GetOthers() *common.ExtendedData {
 	if x != nil {
 		return x.Others
 	}
@@ -239,7 +239,7 @@ type CommentItemResponse struct {
 	NoteOrCommentId *string                `protobuf:"bytes,6,opt,name=note_or_comment_id,json=noteOrCommentId,proto3,oneof" json:"note_or_comment_id,omitempty"`
 	NoteUrl         *string                `protobuf:"bytes,7,opt,name=note_url,json=noteUrl,proto3,oneof" json:"note_url,omitempty"`
 	Author          *common.Author         `protobuf:"bytes,8,opt,name=author,proto3,oneof" json:"author,omitempty"`
-	Others          *common.AdditionalData `protobuf:"bytes,9,opt,name=others,proto3,oneof" json:"others,omitempty"`
+	Others          *common.ExtendedData   `protobuf:"bytes,9,opt,name=others,proto3,oneof" json:"others,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -330,7 +330,7 @@ func (x *CommentItemResponse) GetAuthor() *common.Author {
 	return nil
 }
 
-func (x *CommentItemResponse) GetOthers() *common.AdditionalData {
+func (x *CommentItemResponse) GetOthers() *common.ExtendedData {
 	if x != nil {
 		return x.Others
 	}
@@ -437,29 +437,29 @@ var File_vcs_comment_note_proto protoreflect.FileDescriptor
 
 const file_vcs_comment_note_proto_rawDesc = "" +
 	"\n" +
-	"\x16vcs/comment_note.proto\x12\x0evcs.comment.v1\x1a\x10vcs/common.proto\"\xb7\x01\n" +
+	"\x16vcs/comment_note.proto\x12\x0evcs.comment.v1\x1a\x10vcs/common.proto\"\xb5\x01\n" +
 	"\x14CreateCommentRequest\x12\x1d\n" +
 	"\n" +
 	"project_id\x18\x01 \x01(\tR\tprojectId\x12%\n" +
 	"\x0epullrequest_id\x18\x02 \x01(\tR\rpullrequestId\x12\x12\n" +
-	"\x04body\x18\x03 \x01(\tR\x04body\x12:\n" +
-	"\x06others\x18\x05 \x01(\v2\x1d.vcs.common.v1.AdditionalDataH\x00R\x06others\x88\x01\x01B\t\n" +
-	"\a_others\"\xd6\x01\n" +
+	"\x04body\x18\x03 \x01(\tR\x04body\x128\n" +
+	"\x06others\x18\x05 \x01(\v2\x1b.vcs.common.v1.ExtendedDataH\x00R\x06others\x88\x01\x01B\t\n" +
+	"\a_others\"\xd4\x01\n" +
 	"\x14UpdateCommentRequest\x12\x1d\n" +
 	"\n" +
 	"project_id\x18\x01 \x01(\tR\tprojectId\x12%\n" +
 	"\x0epullrequest_id\x18\x02 \x01(\tR\rpullrequestId\x12\x12\n" +
 	"\x04body\x18\x03 \x01(\tR\x04body\x12\x1d\n" +
 	"\n" +
-	"comment_id\x18\x04 \x01(\tR\tcommentId\x12:\n" +
-	"\x06others\x18\x05 \x01(\v2\x1d.vcs.common.v1.AdditionalDataH\x00R\x06others\x88\x01\x01B\t\n" +
+	"comment_id\x18\x04 \x01(\tR\tcommentId\x128\n" +
+	"\x06others\x18\x05 \x01(\v2\x1b.vcs.common.v1.ExtendedDataH\x00R\x06others\x88\x01\x01B\t\n" +
 	"\a_others\"{\n" +
 	"\x14DeleteCommentRequest\x12\x1d\n" +
 	"\n" +
 	"project_id\x18\x01 \x01(\tR\tprojectId\x12%\n" +
 	"\x0epullrequest_id\x18\x02 \x01(\tR\rpullrequestId\x12\x1d\n" +
 	"\n" +
-	"comment_id\x18\x04 \x01(\tR\tcommentId\"\x9b\x03\n" +
+	"comment_id\x18\x04 \x01(\tR\tcommentId\"\x99\x03\n" +
 	"\x13CommentItemResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x12\n" +
 	"\x04body\x18\x02 \x01(\tR\x04body\x12\x1d\n" +
@@ -470,8 +470,8 @@ const file_vcs_comment_note_proto_rawDesc = "" +
 	"\x06system\x18\x05 \x01(\bH\x00R\x06system\x88\x01\x01\x120\n" +
 	"\x12note_or_comment_id\x18\x06 \x01(\tH\x01R\x0fnoteOrCommentId\x88\x01\x01\x12\x1e\n" +
 	"\bnote_url\x18\a \x01(\tH\x02R\anoteUrl\x88\x01\x01\x122\n" +
-	"\x06author\x18\b \x01(\v2\x15.vcs.common.v1.AuthorH\x03R\x06author\x88\x01\x01\x12:\n" +
-	"\x06others\x18\t \x01(\v2\x1d.vcs.common.v1.AdditionalDataH\x04R\x06others\x88\x01\x01B\t\n" +
+	"\x06author\x18\b \x01(\v2\x15.vcs.common.v1.AuthorH\x03R\x06author\x88\x01\x01\x128\n" +
+	"\x06others\x18\t \x01(\v2\x1b.vcs.common.v1.ExtendedDataH\x04R\x06others\x88\x01\x01B\t\n" +
 	"\a_systemB\x15\n" +
 	"\x13_note_or_comment_idB\v\n" +
 	"\t_note_urlB\t\n" +
@@ -507,15 +507,15 @@ var file_vcs_comment_note_proto_goTypes = []any{
 	(*CommentItemResponse)(nil),           // 3: vcs.comment.v1.CommentItemResponse
 	(*CreateOrUpdateCommentResponse)(nil), // 4: vcs.comment.v1.CreateOrUpdateCommentResponse
 	(*DeleteCommentResponse)(nil),         // 5: vcs.comment.v1.DeleteCommentResponse
-	(*common.AdditionalData)(nil),         // 6: vcs.common.v1.AdditionalData
+	(*common.ExtendedData)(nil),           // 6: vcs.common.v1.ExtendedData
 	(*common.Author)(nil),                 // 7: vcs.common.v1.Author
 	(*common.HttpResponseMetadata)(nil),   // 8: vcs.common.v1.HttpResponseMetadata
 }
 var file_vcs_comment_note_proto_depIdxs = []int32{
-	6,  // 0: vcs.comment.v1.CreateCommentRequest.others:type_name -> vcs.common.v1.AdditionalData
-	6,  // 1: vcs.comment.v1.UpdateCommentRequest.others:type_name -> vcs.common.v1.AdditionalData
+	6,  // 0: vcs.comment.v1.CreateCommentRequest.others:type_name -> vcs.common.v1.ExtendedData
+	6,  // 1: vcs.comment.v1.UpdateCommentRequest.others:type_name -> vcs.common.v1.ExtendedData
 	7,  // 2: vcs.comment.v1.CommentItemResponse.author:type_name -> vcs.common.v1.Author
-	6,  // 3: vcs.comment.v1.CommentItemResponse.others:type_name -> vcs.common.v1.AdditionalData
+	6,  // 3: vcs.comment.v1.CommentItemResponse.others:type_name -> vcs.common.v1.ExtendedData
 	8,  // 4: vcs.comment.v1.CreateOrUpdateCommentResponse.metadata:type_name -> vcs.common.v1.HttpResponseMetadata
 	3,  // 5: vcs.comment.v1.CreateOrUpdateCommentResponse.data:type_name -> vcs.comment.v1.CommentItemResponse
 	8,  // 6: vcs.comment.v1.DeleteCommentResponse.metadata:type_name -> vcs.common.v1.HttpResponseMetadata

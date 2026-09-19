@@ -29,8 +29,8 @@ type GetPullRequestRequest struct {
 	// GitLab: merge_request_iid ; GitHub: number ; BB: id ; Gitea: index
 	PullrequestId string `protobuf:"bytes,2,opt,name=pullrequest_id,json=pullrequestId,proto3" json:"pullrequest_id,omitempty"`
 	// only github and gitea
-	Owner         *string                `protobuf:"bytes,3,opt,name=owner,proto3,oneof" json:"owner,omitempty"`
-	Data          *common.AdditionalData `protobuf:"bytes,4,opt,name=data,proto3,oneof" json:"data,omitempty"`
+	Owner         *string              `protobuf:"bytes,3,opt,name=owner,proto3,oneof" json:"owner,omitempty"`
+	Data          *common.ExtendedData `protobuf:"bytes,4,opt,name=data,proto3,oneof" json:"data,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -86,7 +86,7 @@ func (x *GetPullRequestRequest) GetOwner() string {
 	return ""
 }
 
-func (x *GetPullRequestRequest) GetData() *common.AdditionalData {
+func (x *GetPullRequestRequest) GetData() *common.ExtendedData {
 	if x != nil {
 		return x.Data
 	}
@@ -367,13 +367,13 @@ var File_vcs_pull_request_proto protoreflect.FileDescriptor
 
 const file_vcs_pull_request_proto_rawDesc = "" +
 	"\n" +
-	"\x16vcs/pull_request.proto\x12\x12vcs.pullrequest.v1\x1a\x10vcs/common.proto\"\xc3\x01\n" +
+	"\x16vcs/pull_request.proto\x12\x12vcs.pullrequest.v1\x1a\x10vcs/common.proto\"\xc1\x01\n" +
 	"\x15GetPullRequestRequest\x12\x1d\n" +
 	"\n" +
 	"project_id\x18\x01 \x01(\tR\tprojectId\x12%\n" +
 	"\x0epullrequest_id\x18\x02 \x01(\tR\rpullrequestId\x12\x19\n" +
-	"\x05owner\x18\x03 \x01(\tH\x00R\x05owner\x88\x01\x01\x126\n" +
-	"\x04data\x18\x04 \x01(\v2\x1d.vcs.common.v1.AdditionalDataH\x01R\x04data\x88\x01\x01B\b\n" +
+	"\x05owner\x18\x03 \x01(\tH\x00R\x05owner\x88\x01\x01\x124\n" +
+	"\x04data\x18\x04 \x01(\v2\x1b.vcs.common.v1.ExtendedDataH\x01R\x04data\x88\x01\x01B\b\n" +
 	"\x06_ownerB\a\n" +
 	"\x05_data\"\xad\t\n" +
 	"\x16GetPullRequestResponse\x12\x0e\n" +
@@ -443,11 +443,11 @@ var file_vcs_pull_request_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_vcs_pull_request_proto_goTypes = []any{
 	(*GetPullRequestRequest)(nil),  // 0: vcs.pullrequest.v1.GetPullRequestRequest
 	(*GetPullRequestResponse)(nil), // 1: vcs.pullrequest.v1.GetPullRequestResponse
-	(*common.AdditionalData)(nil),  // 2: vcs.common.v1.AdditionalData
+	(*common.ExtendedData)(nil),    // 2: vcs.common.v1.ExtendedData
 	(*common.Author)(nil),          // 3: vcs.common.v1.Author
 }
 var file_vcs_pull_request_proto_depIdxs = []int32{
-	2, // 0: vcs.pullrequest.v1.GetPullRequestRequest.data:type_name -> vcs.common.v1.AdditionalData
+	2, // 0: vcs.pullrequest.v1.GetPullRequestRequest.data:type_name -> vcs.common.v1.ExtendedData
 	3, // 1: vcs.pullrequest.v1.GetPullRequestResponse.closed_by:type_name -> vcs.common.v1.Author
 	3, // 2: vcs.pullrequest.v1.GetPullRequestResponse.merged_by:type_name -> vcs.common.v1.Author
 	3, // 3: vcs.pullrequest.v1.GetPullRequestResponse.author:type_name -> vcs.common.v1.Author
