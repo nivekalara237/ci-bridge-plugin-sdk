@@ -17,7 +17,7 @@ message GetPullRequestRequest {
   string pullrequest_id = 2;
   // only github and gitea
   optional string owner = 3;
-  optional vcs.common.v1.AdditionalData data = 4;
+  optional vcs.common.v1.ExtendedData data = 4;
 }
 
 message GetPullRequestResponse {

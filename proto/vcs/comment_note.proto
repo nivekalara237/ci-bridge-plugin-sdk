@@ -16,7 +16,7 @@ message CreateCommentRequest {
   // Gitlab: mr_iid, Github: issue_number
   string pullrequest_id = 2;
   string body = 3;
-  optional vcs.common.v1.AdditionalData others = 5;
+  optional vcs.common.v1.ExtendedData others = 5;
 }
 
 message UpdateCommentRequest {
@@ -25,7 +25,7 @@ message UpdateCommentRequest {
   string pullrequest_id = 2;
   string body = 3;
   string comment_id = 4;
-  optional vcs.common.v1.AdditionalData others = 5;
+  optional vcs.common.v1.ExtendedData others = 5;
 }
 
 message DeleteCommentRequest {
@@ -44,7 +44,7 @@ message CommentItemResponse {
   optional string note_or_comment_id = 6;
   optional string note_url = 7;
   optional vcs.common.v1.Author author = 8;
-  optional vcs.common.v1.AdditionalData others = 9;
+  optional vcs.common.v1.ExtendedData others = 9;
 }
 
 message CreateOrUpdateCommentResponse {

@@ -13,7 +13,7 @@ enum UserType {
   Machine = 3;
 }
 
-message AdditionalData {
+message ExtendedData {
   google.protobuf.Struct data = 1;
 }
 
