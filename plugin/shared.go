@@ -41,17 +41,18 @@ const (
 // there) and set to a real implementation on the plugin binary (only
 // GRPCServer is ever invoked there).
 type InfoGRPCPlugin struct {
-	goplugin.NetRPCUnsupportedPlugin
+	goplugin.Plugin
 	Impl pluginv1.PluginInfoServer
 }
 
 type CommentAndNoteGRPCPlugin struct {
-	goplugin.NetRPCUnsupportedPlugin
+	goplugin.Plugin
 	Impl comment.CommentAndNoteServiceServer
 }
 
 type PullrequestGRPCPlugin struct {
-	goplugin.NetRPCUnsupportedPlugin
+	goplugin.Plugin
+	// 	goplugin.NetRPCUnsupportedPlugin
 	Impl pullrequest.PullRequestServiceServer
 }
 
@@ -73,12 +74,12 @@ func (cn *CommentAndNoteGRPCPlugin) GRPCServer(broker *goplugin.GRPCBroker, s *g
 	return nil
 }
 
-func (p *PullrequestGRPCPlugin) GRPCServer(broker *goplugin.GRPCBroker, s *grpc.Server) error {
+func (p *PullrequestGRPCPlugin) GRPCServer(broker *goplugin.MuxBroker, s *grpc.Server) error {
 	pullrequest.RegisterPullRequestServiceServer(s, p.Impl)
 	return nil
 }
 
-func (p *PullrequestGRPCPlugin) GRPCClient(ctx context.Context, broker *goplugin.GRPCBroker, c *grpc.ClientConn) (any, error) {
+func (p *PullrequestGRPCPlugin) GRPCClient(ctx context.Context, broker *goplugin.MuxBroker, c *grpc.ClientConn) (any, error) {
 	return pullrequest.NewPullRequestServiceClient(c), nil
 }
 
