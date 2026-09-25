@@ -10,6 +10,8 @@ import (
 	"context"
 
 	goplugin "github.com/hashicorp/go-plugin"
+	"github.com/nivekalara237/ci-bridge-plugin-sdk/vcs/comment"
+	"github.com/nivekalara237/ci-bridge-plugin-sdk/vcs/pullrequest"
 	"google.golang.org/grpc"
 
 	pluginv1 "github.com/nivekalara237/ci-bridge-plugin-sdk/plugin/v1"
@@ -27,7 +29,11 @@ var Handshake = goplugin.HandshakeConfig{
 }
 
 // PluginKey is the name both sides Dispense/register under.
-const PluginKey = "vcs"
+const (
+	PluginKey         = "vcs"
+	CommentAndNoteKey = "comment_and_note_service"
+	PullrequestKey    = "pullrequest_service"
+)
 
 // InfoGRPCPlugin bridges the generated PluginInfo gRPC service
 // into go-plugin's plugin.GRPCPlugin interface. The same type serves
@@ -39,19 +45,62 @@ type InfoGRPCPlugin struct {
 	Impl pluginv1.PluginInfoServer
 }
 
+type CommentAndNoteGRPCPlugin struct {
+	goplugin.NetRPCUnsupportedPlugin
+	Impl comment.CommentAndNoteServiceServer
+}
+
+type PullrequestGRPCPlugin struct {
+	goplugin.NetRPCUnsupportedPlugin
+	Impl pullrequest.PullRequestServiceServer
+}
+
 func (p *InfoGRPCPlugin) GRPCServer(broker *goplugin.GRPCBroker, s *grpc.Server) error {
 	pluginv1.RegisterPluginInfoServer(s, p.Impl)
 	return nil
 }
 
-func (p *InfoGRPCPlugin) GRPCClient(ctx context.Context, broker *goplugin.GRPCBroker, c *grpc.ClientConn) (interface{}, error) {
+func (p *InfoGRPCPlugin) GRPCClient(ctx context.Context, broker *goplugin.GRPCBroker, c *grpc.ClientConn) (any, error) {
 	return pluginv1.NewPluginInfoClient(c), nil
 }
 
-// Map is the plugin map passed to both plugin.ClientConfig (host side,
+func (cn *CommentAndNoteGRPCPlugin) GRPCClient(ctx context.Context, broker *goplugin.GRPCBroker, c *grpc.ClientConn) (any, error) {
+	return comment.NewCommentAndNoteServiceClient(c), nil
+}
+
+func (cn *CommentAndNoteGRPCPlugin) GRPCServer(broker *goplugin.GRPCBroker, s *grpc.Server) error {
+	comment.RegisterCommentAndNoteServiceServer(s, cn.Impl)
+	return nil
+}
+
+func (p *PullrequestGRPCPlugin) GRPCServer(broker *goplugin.GRPCBroker, s *grpc.Server) error {
+	pullrequest.RegisterPullRequestServiceServer(s, p.Impl)
+	return nil
+}
+
+func (p *PullrequestGRPCPlugin) GRPCClient(ctx context.Context, broker *goplugin.GRPCBroker, c *grpc.ClientConn) (any, error) {
+	return pullrequest.NewPullRequestServiceClient(c), nil
+}
+
+// HostPlugins is the plugin map passed to both plugin.ClientConfig (host side,
 // impl left nil) and plugin.ServeConfig (plugin binary, impl set).
-func Map(impl pluginv1.PluginInfoServer) map[string]goplugin.Plugin {
+func HostPlugins() map[string]goplugin.Plugin {
 	return map[string]goplugin.Plugin{
-		PluginKey: &InfoGRPCPlugin{Impl: impl},
+		PluginKey:         &InfoGRPCPlugin{},
+		CommentAndNoteKey: &CommentAndNoteGRPCPlugin{},
+		PullrequestKey:    &PullrequestGRPCPlugin{},
 	}
+}
+
+type PServerEntry struct {
+	Key        string
+	ServerImpl goplugin.Plugin
+}
+
+func PluginServer(servers ...PServerEntry) map[string]goplugin.Plugin {
+	entries := make(map[string]goplugin.Plugin, len(servers))
+	for _, e := range servers {
+		entries[e.Key] = e.ServerImpl
+	}
+	return entries
 }

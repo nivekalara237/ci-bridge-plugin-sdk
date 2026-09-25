@@ -124,10 +124,6 @@ Two version numbers matter here, and they're deliberately independent:
 - **The module's own semver tag** (`v1.2.3`, via `go get github.com/nivekalara237/ci-bridge-plugin-sdk@v1.2.3`) — bump this for any change to this repo, following normal Go module semver rules (a breaking change to exported API needs a `/v2` major version bump).
 - **`InfoResponse.protocol_version`** (currently `1`) — the *business* protocol version a plugin declares at handshake, independent of this module's own version. A host can depend on an old `ci-bridge-plugin-sdk` release while still talking to a plugin declaring a newer `protocol_version`, as long as the host's own compatibility check accepts it. Don't conflate the two.
 
-## About the `replace` directives in `go.mod`
-
-`go.mod` redirects `google.golang.org/grpc`, `google.golang.org/protobuf`, `golang.org/x/*` and a few others to their canonical GitHub mirrors instead of resolving them through their vanity import path. This was originally worked around a restricted sandbox that couldn't reach `golang.org`/`google.golang.org`, but it's harmless anywhere: those mirrors *are* the real upstream source (grpc-go and protobuf-go are developed on GitHub; the `google.golang.org/...` paths are just aliases). On a machine with normal internet access you can safely leave them as-is, or run `go get -u ./... && go mod tidy` to pick up newer versions if a vanity path resolves cleanly for you.
-
 ## Development
 
 ```bash
@@ -137,8 +133,6 @@ gofmt -l .   # should print nothing
 go vet ./...
 ```
 
-No test files yet — this module is pure wiring with no branching logic of its own; it's exercised end-to-end by sonarbridge-go's integration tests (real subprocess, real gRPC, real crash detection).
-
 ## License
 
-Not yet chosen — add a `LICENSE` file (MIT/Apache-2.0 are the usual defaults for a Go module) before making this repository public.
+Apache-2.0
